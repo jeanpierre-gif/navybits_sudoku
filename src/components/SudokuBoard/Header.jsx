@@ -70,5 +70,6 @@ function Header({ DifficultyLevel,generateNew }) {
 }
 Header.propTypes = {
   DifficultyLevel : PropTypes.string.isRequired,
+  generateNew:PropTypes.bool.isRequired
 }
 export default Header;
