@@ -10,10 +10,12 @@ function SudokuBoard() {
   const { Difficulty } = useParams();
   const [difficulty, setDifficulty] = useState(Difficulty || 'medium');
   const [board, setBoard] = useState(Array(9).fill(Array(9).fill('')));
+  const [generateNew, setgenerateNew] = useState(false);
   const [lockedCells, setLockedCells] = useState([]);
   const [errors, setErrors] = useState([]); // Tracks cells with conflicts
   // Function to generate a new puzzle
   const generatePuzzle = (difficultyLevel) => {
+    setgenerateNew(!generateNew);
     const newBoard = generateSudokuPuzzle(difficultyLevel);
     setBoard(newBoard);
 
@@ -99,7 +101,7 @@ function SudokuBoard() {
   return (
     <div className='flex w-full justify-center items-center p-4'>
       <div className='flex flex-col'>
-        <Header DifficultyLevel={difficulty} />
+        <Header DifficultyLevel={difficulty} generateNew={generateNew} />
         <div className='grid grid-cols-9 p-4 bg-gray-100 rounded-lg'>
           {board.map((row, rowIndex) =>
             row.map((cell, colIndex) => (

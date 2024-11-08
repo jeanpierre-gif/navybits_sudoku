@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Button } from "../ui/button";
-function Header({ DifficultyLevel }) {
+function Header({ DifficultyLevel,generateNew }) {
     const [seconds, setSeconds] = useState(0); // Track elapsed time in seconds
     const [paused,setPaused]=useState(false);
     const handlePauseButton =()=>{
@@ -21,7 +21,7 @@ function Header({ DifficultyLevel }) {
     }
     useEffect(() => {
       setSeconds(0);
-     },[DifficultyLevel]);
+     },[DifficultyLevel,generateNew]);
     useEffect(() => {
       if(paused){
         return;
