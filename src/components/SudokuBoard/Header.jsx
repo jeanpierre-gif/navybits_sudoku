@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import PauseIcon from '../../assets/pauseIcon.svg';
+import PropTypes from "prop-types";
 import {
   Dialog,
   DialogContent,
@@ -19,9 +20,13 @@ function Header({ DifficultyLevel }) {
       setPaused(false);
     }
     useEffect(() => {
+      setSeconds(0);
+     },[DifficultyLevel]);
+    useEffect(() => {
       if(paused){
         return;
       }
+      
         // Start timer on component mount
         const timer = setInterval(() => {
             setSeconds((prevSeconds) => prevSeconds + 1);
@@ -63,5 +68,7 @@ function Header({ DifficultyLevel }) {
         </div>
     );
 }
-
+Header.propTypes = {
+  DifficultyLevel : PropTypes.string.isRequired,
+}
 export default Header;

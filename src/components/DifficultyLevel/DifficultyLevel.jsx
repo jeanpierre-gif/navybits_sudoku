@@ -1,13 +1,22 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
+import PropTypes from "prop-types";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
+import { useNavigate } from 'react-router-dom';
 
-export default function DropdownMenuDemo() {
+ function DropdownMenuDemo({ setDifficulty }) {
+  const navigate = useNavigate();
+
+  const handleSelect = (difficulty) => {
+    setDifficulty(difficulty);
+    navigate(`/sudoku/${difficulty}`);
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -15,17 +24,21 @@ export default function DropdownMenuDemo() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-           Easy          
+          <DropdownMenuItem onClick={() => handleSelect('easy')}>
+            Easy
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => handleSelect('medium')}>
             Medium
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => handleSelect('hard')}>
             Hard
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }
+DropdownMenuDemo.propTypes = {
+  setDifficulty:PropTypes.func.isRequired
+};
+export default DropdownMenuDemo;

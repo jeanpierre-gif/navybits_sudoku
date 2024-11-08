@@ -12,7 +12,6 @@ function SudokuBoard() {
   const [board, setBoard] = useState(Array(9).fill(Array(9).fill('')));
   const [lockedCells, setLockedCells] = useState([]);
   const [errors, setErrors] = useState([]); // Tracks cells with conflicts
-
   // Function to generate a new puzzle
   const generatePuzzle = (difficultyLevel) => {
     const newBoard = generateSudokuPuzzle(difficultyLevel);
