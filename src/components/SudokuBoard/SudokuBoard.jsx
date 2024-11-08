@@ -121,8 +121,12 @@ function SudokuBoard() {
             ))
           )}
         </div>
-        <DifficultyLevel setDifficulty={setDifficulty} />
-        <Button onClick={() => generatePuzzle(difficulty)}>Generate puzzle</Button>
+        <div className='flex mt-4 gap-2 flex-col md:flex-row'>
+  <DifficultyLevel setDifficulty={setDifficulty} />
+  <Button onClick={() => generatePuzzle(difficulty)} className="w-full md:w-1/2">Generate new board</Button>
+</div>
+
+       
       </div>
     </div>
   );
