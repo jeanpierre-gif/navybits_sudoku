@@ -39,23 +39,27 @@ function SudokuBoard() {
       setBoard(updatedBoard);
     }
   };
-
   const validateBoard = () => {
     let newErrors = [];
-
+  
     //row and col validation
     for (let i = 0; i < 9; i++) {
       let rowSet = new Set();
       let colSet = new Set();
       for (let j = 0; j < 9; j++) {
-        if (board[i][j] && rowSet.has(board[i][j])) newErrors.push([i, j]);
-        rowSet.add(board[i][j]);
-
-        if (board[j][i] && colSet.has(board[j][i])) newErrors.push([j, i]);
-        colSet.add(board[j][i]);
+        //ensure values are always treated as strings
+        const currentValue = String(board[i][j]);
+        const currentColValue = String(board[j][i]);
+  
+        //check for duplicates in the row and column
+        if (currentValue && rowSet.has(currentValue)) newErrors.push([i, j]);
+        if (currentColValue && colSet.has(currentColValue)) newErrors.push([j, i]);
+  
+        rowSet.add(currentValue);
+        colSet.add(currentColValue);
       }
     }
-
+  
     //subgrid validation
     for (let boxRow = 0; boxRow < 3; boxRow++) {
       for (let boxCol = 0; boxCol < 3; boxCol++) {
@@ -64,17 +68,23 @@ function SudokuBoard() {
           for (let j = 0; j < 3; j++) {
             let row = 3 * boxRow + i;
             let col = 3 * boxCol + j;
-            if (board[row][col] && boxSet.has(board[row][col]))
-              newErrors.push([row, col]);
-            boxSet.add(board[row][col]);
+            //ensure values are always treated as strings
+            const currentBoxValue = String(board[row][col]);
+  
+            //check for duplicates in the subgrid
+            if (currentBoxValue && boxSet.has(currentBoxValue)) newErrors.push([row, col]);
+            boxSet.add(currentBoxValue);
           }
         }
       }
     }
-
-    setErrors(newErrors);
+  
+    // Remove duplicates by turning the error array into a set of unique coordinates
+    setErrors(newErrors.filter(([row, col], index, self) =>
+      index === self.findIndex(([r, c]) => r === row && c === col)
+    ));
   };
-
+  
   //generate a puzzle based on difficulty change
   useEffect(() => {
     console.log(difficulty);
