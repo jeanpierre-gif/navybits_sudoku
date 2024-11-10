@@ -5,21 +5,20 @@ import { generateSudokuPuzzle } from '@/utils/SudokuGenerator';
 import Header from './Header';
 import { useParams } from 'react-router-dom';
 import DifficultyLevel from '../DifficultyLevel/DifficultyLevel';
-
+import SudokuSolver from './SudokuSolver';
 function SudokuBoard() {
   const { Difficulty } = useParams();
   const [difficulty, setDifficulty] = useState(Difficulty || 'medium');
   const [board, setBoard] = useState(Array(9).fill(Array(9).fill('')));
   const [generateNew, setgenerateNew] = useState(false);
   const [lockedCells, setLockedCells] = useState([]);
-  const [errors, setErrors] = useState([]); // Tracks cells with conflicts
-  // Function to generate a new puzzle
+  const [errors, setErrors] = useState([]); 
   const generatePuzzle = (difficultyLevel) => {
     setgenerateNew(!generateNew);
     const newBoard = generateSudokuPuzzle(difficultyLevel);
     setBoard(newBoard);
 
-    // Set locked cells based on the generated puzzle
+    //set locked cells based on the generated puzzle
     const newLockedCells = [];
     newBoard.forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
@@ -27,10 +26,9 @@ function SudokuBoard() {
       });
     });
     setLockedCells(newLockedCells);
-    setErrors([]); // Reset errors when generating a new puzzle
+    setErrors([]); //reset errors when generating a new puzzle
   };
 
-  // Handle input change
   const handleChange = (row, col, value) => {
     if (lockedCells.some(([r, c]) => r === row && c === col)) return;
 
@@ -42,11 +40,10 @@ function SudokuBoard() {
     }
   };
 
-  // Validate the board for errors
   const validateBoard = () => {
     let newErrors = [];
 
-    // Row and column validation
+    //row and col validation
     for (let i = 0; i < 9; i++) {
       let rowSet = new Set();
       let colSet = new Set();
@@ -59,7 +56,7 @@ function SudokuBoard() {
       }
     }
 
-    // Sub-grid validation
+    //subgrid validation
     for (let boxRow = 0; boxRow < 3; boxRow++) {
       for (let boxCol = 0; boxCol < 3; boxCol++) {
         let boxSet = new Set();
@@ -78,13 +75,13 @@ function SudokuBoard() {
     setErrors(newErrors);
   };
 
-  // Effect to generate a puzzle based on difficulty change
+  //generate a puzzle based on difficulty change
   useEffect(() => {
     console.log(difficulty);
     generatePuzzle(difficulty);
   }, [difficulty]);
 
-  // Effect to validate the board whenever it changes
+  //validate the board whenever it changes
   useEffect(() => {
     validateBoard();
   }, [board]);
@@ -127,7 +124,7 @@ function SudokuBoard() {
   <DifficultyLevel setDifficulty={setDifficulty} />
   <Button onClick={() => generatePuzzle(difficulty)} className="w-full md:w-1/2">Generate new board</Button>
 </div>
-
+<SudokuSolver generatedBoard={board} setBoard={setBoard} />
        
       </div>
     </div>

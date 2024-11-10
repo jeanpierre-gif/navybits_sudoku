@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "../ui/button";
 function Header({ DifficultyLevel,generateNew }) {
-    const [seconds, setSeconds] = useState(0); // Track elapsed time in seconds
+    const [seconds, setSeconds] = useState(0); 
     const [paused,setPaused]=useState(false);
     const handlePauseButton =()=>{
       setPaused(true);
@@ -27,16 +27,16 @@ function Header({ DifficultyLevel,generateNew }) {
         return;
       }
       
-        // Start timer on component mount
+        //start timer on component mount
         const timer = setInterval(() => {
             setSeconds((prevSeconds) => prevSeconds + 1);
         }, 1000);
 
-        // Cleanup timer on component unmount
+        //cleanup timer on component unmount
         return () => clearInterval(timer);
     }, [paused]);
 
-    // Convert seconds to minutes and seconds
+    //convert sec to min and sec
     const formatTime = () => {
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
