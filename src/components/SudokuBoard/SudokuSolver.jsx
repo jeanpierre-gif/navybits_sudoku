@@ -1,7 +1,7 @@
 import { solveSudoku, getHint } from '@/utils/sudokuSolver';
 import { Button } from '../ui/button';
 import { useEffect, useState } from 'react';
-import { Dialog, DialogContent, DialogOverlay, DialogTrigger } from '@radix-ui/react-dialog';
+import { Dialog, DialogContent,  DialogTrigger } from "@/components/ui/dialog";
 
 function SudokuSolver({ generatedBoard, setBoard, originalBoard }) {
   const [solvedBoard, setSolvedBoard] = useState(null);
@@ -64,16 +64,14 @@ function SudokuSolver({ generatedBoard, setBoard, originalBoard }) {
     <>
       <div className='flex mt-4 gap-2'>
         <Button onClick={handleSolve} className="w-full md:w-1/2">Solve Board</Button>
-        <Button className="w-full md:w-1/2 bg-white text-black hover:bg-white hover:border-black" onClick={handleHint}>Hint</Button>
+        <Button className="w-full md:w-1/2 bg-white text-black hover:bg-white border-black hover:border-blue" onClick={handleHint}>Hint</Button>
       </div>
-      <div className='flex mt-4 w-full'>
-        <Button className="w-full" onClick={checkSolution}>Check Solution</Button>
-      </div>
-
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogOverlay className="fixed inset-0 bg-black bg-opacity-30" />
-        <DialogContent className="fixed inset-0 flex items-center justify-center">
-          <div className="bg-white p-6 rounded shadow-lg">
+        <DialogTrigger onClick={checkSolution} className='mt-4 border-black' >     
+      Check Solution
+     </DialogTrigger>
+     <DialogContent >
+          <div >
             <p>{dialogMessage}</p>
             <div className="mt-4 text-right">
               <Button onClick={() => setIsDialogOpen(false)}>Close</Button>
@@ -81,6 +79,8 @@ function SudokuSolver({ generatedBoard, setBoard, originalBoard }) {
           </div>
         </DialogContent>
       </Dialog>
+
+       
     </>
   );
 }
