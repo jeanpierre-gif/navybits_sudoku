@@ -52,7 +52,6 @@ export function solveSudoku(board) {
 }
 export function getHint(board, solvedBoard){
   if(!solvedBoard) return null;
-
   for(let row=0;row<9;row++){
     for(let col=0;col<9;col++){
       if(board[row][col]==='' || board[row][col] !== solvedBoard[row][col]){

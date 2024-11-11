@@ -10,6 +10,7 @@ function SudokuBoard() {
   const { Difficulty } = useParams();
   const [difficulty, setDifficulty] = useState(Difficulty || 'medium');
   const [board, setBoard] = useState(Array(9).fill(Array(9).fill('')));
+  const [originalBoard, setOriginalBoard] = useState(Array(9).fill(Array(9).fill('')));
   const [generateNew, setgenerateNew] = useState(false);
   const [lockedCells, setLockedCells] = useState([]);
   const [errors, setErrors] = useState([]); 
@@ -17,7 +18,7 @@ function SudokuBoard() {
     setgenerateNew(!generateNew);
     const newBoard = generateSudokuPuzzle(difficultyLevel);
     setBoard(newBoard);
-
+    setOriginalBoard(newBoard);
     //set locked cells based on the generated puzzle
     const newLockedCells = [];
     newBoard.forEach((row, rowIndex) => {
@@ -134,7 +135,7 @@ function SudokuBoard() {
   <DifficultyLevel setDifficulty={setDifficulty} />
   <Button onClick={() => generatePuzzle(difficulty)} className="w-full md:w-1/2">Generate new board</Button>
 </div>
-<SudokuSolver generatedBoard={board} setBoard={setBoard} />
+<SudokuSolver generatedBoard={board} setBoard={setBoard} originalBoard={originalBoard} />
        
       </div>
     </div>
