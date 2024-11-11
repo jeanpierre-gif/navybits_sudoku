@@ -4,8 +4,8 @@ import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom'
 import './index.css';
 import App from './App.jsx';
 
-const SudokuBoard = lazy(() => import('./components/SudokuBoard/SudokuBoard'));
-const NotFoundPage = lazy(() => import('./components/NotFoundPage/NotFoundPage'));
+const SudokuBoard = lazy(() => import('./Pages/SudokuPage'));
+const NotFoundPage = lazy(() => import('./Pages/NotFoundPage'));
 
 const validDifficulties = ['easy', 'medium', 'hard'];
 

@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
   const handleSelect = (difficulty) => {
     setDifficulty(difficulty);
-    navigate(`/sudoku/${difficulty}`);
+    navigate(`/Sudoku/${difficulty}`);
   };
 
   return (

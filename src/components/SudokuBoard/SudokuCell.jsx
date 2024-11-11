@@ -1,4 +1,5 @@
 
+// eslint-disable-next-line react/prop-types
 function SudokuCell({ value, onChange, className }) {
   return (
     <input

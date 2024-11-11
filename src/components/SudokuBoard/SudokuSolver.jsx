@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { solveSudoku, getHint } from '@/utils/sudokuSolver';
 import { Button } from '../ui/button';
 import { useEffect, useState } from 'react';

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import SudokuCell from './SudokuCell';
 import { Button } from '../ui/button';
 import { generateSudokuPuzzle } from '@/utils/SudokuGenerator';
 import Header from './Header';
 import { useParams } from 'react-router-dom';
 import DifficultyLevel from '../DifficultyLevel/DifficultyLevel';
 import SudokuSolver from './SudokuSolver';
+import SudokuGrid from './SudokuGrid';
 function SudokuBoard() {
   const { Difficulty } = useParams();
   const [difficulty, setDifficulty] = useState(Difficulty || 'medium');
@@ -116,27 +116,13 @@ function SudokuBoard() {
     <div className='flex w-full justify-center items-center p-4'>
       <div className='flex flex-col'>
         <Header DifficultyLevel={difficulty} generateNew={generateNew} isCompleted={errors.length === 0 && isCompleted ? true : false}  />
-        <div className='grid grid-cols-9 p-4 bg-gray-100 rounded-lg'>
-          {board.map((row, rowIndex) =>
-            row.map((cell, colIndex) => (
-              <SudokuCell
-                key={`${rowIndex}-${colIndex}`}
-                value={cell}
-                onChange={(e) => handleChange(rowIndex, colIndex, e.target.value)}
-                className={`${getBorderClasses(rowIndex, colIndex)} 
-                            ${isErrorCell(rowIndex, colIndex) ? 'bg-red-200' : ''}
-                            ${
-                              lockedCells.some(
-                                ([r, c]) => r === rowIndex && c === colIndex
-                              )
-                                ? 'bg-gray-200'
-                                : ''
-                            }`}
-                disabled={lockedCells.some(([r, c]) => r === rowIndex && c === colIndex)}
-              />
-            ))
-          )}
-        </div>
+        <SudokuGrid
+          board={board}
+          handleChange={handleChange}
+          getBorderClasses={getBorderClasses}
+          isErrorCell={isErrorCell}
+          lockedCells={lockedCells}
+        />
         <div className='flex mt-4 gap-2 flex-col md:flex-row'>
   <DifficultyLevel setDifficulty={setDifficulty} />
   <Button onClick={() => generatePuzzle(difficulty)} className="w-full md:w-1/2">Generate new board</Button>
