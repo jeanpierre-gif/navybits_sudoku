@@ -50,3 +50,16 @@ export function solveSudoku(board) {
   console.log("No solution exists.");
   return null;
 }
+export function getHint(board, solvedBoard){
+  if(!solvedBoard) return null;
+
+  for(let row=0;row<9;row++){
+    for(let col=0;col<9;col++){
+      if(board[row][col]==='' || board[row][col] !== solvedBoard[row][col]){
+
+        return {row, col ,value:solvedBoard[row][col]};
+      }
+    }
+  }
+  return null;
+}
