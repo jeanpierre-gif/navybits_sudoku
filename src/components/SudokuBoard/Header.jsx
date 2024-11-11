@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import PauseIcon from '../../assets/pauseIcon.svg';
 import PropTypes from "prop-types";
+
 import {
   Dialog,
   DialogContent,
@@ -10,7 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Button } from "../ui/button";
-function Header({ DifficultyLevel,generateNew }) {
+function Header({ DifficultyLevel,generateNew, isCompleted }) {
     const [seconds, setSeconds] = useState(0); 
     const [paused,setPaused]=useState(false);
     const handlePauseButton =()=>{
@@ -31,10 +32,14 @@ function Header({ DifficultyLevel,generateNew }) {
         const timer = setInterval(() => {
             setSeconds((prevSeconds) => prevSeconds + 1);
         }, 1000);
-
+console.log(isCompleted );
+         if(isCompleted) {
+          clearInterval(timer);
+         }
         //cleanup timer on component unmount
         return () => clearInterval(timer);
-    }, [paused]);
+
+    }, [paused,isCompleted]);
 
     //convert sec to min and sec
     const formatTime = () => {
@@ -70,6 +75,7 @@ function Header({ DifficultyLevel,generateNew }) {
 }
 Header.propTypes = {
   DifficultyLevel : PropTypes.string.isRequired,
-  generateNew:PropTypes.bool.isRequired
+  generateNew:PropTypes.bool.isRequired,
+  isCompleted: PropTypes.bool.isRequired
 }
 export default Header;

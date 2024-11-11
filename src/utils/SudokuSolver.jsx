@@ -52,13 +52,17 @@ export function solveSudoku(board) {
 }
 export function getHint(board, solvedBoard){
   if(!solvedBoard) return null;
+  const hintcells = [];
+
   for(let row=0;row<9;row++){
     for(let col=0;col<9;col++){
       if(board[row][col]==='' || board[row][col] !== solvedBoard[row][col]){
-
-        return {row, col ,value:solvedBoard[row][col]};
+        hintcells.push({row, col ,value:solvedBoard[row][col]});
       }
     }
   }
-  return null;
+  if(hintcells.length ===0) return null;
+  
+  const randomIndex = Math.floor(Math.random()*hintcells.length);
+  return hintcells[randomIndex];
 }
