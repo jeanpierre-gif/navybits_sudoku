@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 import DifficultyLevel from '../DifficultyLevel/DifficultyLevel';
 import SudokuSolver from './SudokuSolver';
 import SudokuGrid from './SudokuGrid';
+import SudokuTutorial from '@/utils/SudokuTutorial';
+
 function SudokuBoard() {
   const { Difficulty } = useParams();
   const [difficulty, setDifficulty] = useState(Difficulty || 'medium');
@@ -15,6 +17,10 @@ function SudokuBoard() {
   const [generateNew, setgenerateNew] = useState(false);
   const [lockedCells, setLockedCells] = useState([]);
   const [errors, setErrors] = useState([]); 
+  // eslint-disable-next-line no-unused-vars
+  const [isTutorialOpen, setIsTutorialOpen] = useState(false); // Tutorial state
+ 
+
   const generatePuzzle = (difficultyLevel) => {
     setgenerateNew(!generateNew);
     const newBoard = generateSudokuPuzzle(difficultyLevel);
@@ -111,21 +117,27 @@ function SudokuBoard() {
     if (colIndex % 3 === 0 && colIndex !== 0) borderClasses += ' border-l-4 ';
     return borderClasses;
   };
-
+  const startTutorialCallback = () => {
+    setIsTutorialOpen(false);
+  };
   return (
     <div className='flex w-full justify-center items-center p-4'>
       <div className='flex flex-col'>
+      <SudokuTutorial StartTutorialCallBack={startTutorialCallback} highlightedCol={4} board={board} />
         <Header DifficultyLevel={difficulty} generateNew={generateNew} isCompleted={errors.length === 0 && isCompleted ? true : false}  />
+      
+
         <SudokuGrid
           board={board}
           handleChange={handleChange}
           getBorderClasses={getBorderClasses}
           isErrorCell={isErrorCell}
-          lockedCells={lockedCells}
+          lockedCells={lockedCells} highlightedRow={3} highlightedCol={4}
+
         />
         <div className='flex mt-4 gap-2 flex-col md:flex-row'>
-  <DifficultyLevel setDifficulty={setDifficulty} />
-  <Button onClick={() => generatePuzzle(difficulty)} className="w-full md:w-1/2">Generate new board</Button>
+  <DifficultyLevel setDifficulty={setDifficulty}/>
+  <Button onClick={() => generatePuzzle(difficulty)} className="generateNewBoardBtn w-full md:w-1/2">Generate new board</Button>
 </div>
 <SudokuSolver generatedBoard={board} setBoard={setBoard} originalBoard={originalBoard} />
        

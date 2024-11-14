@@ -64,11 +64,11 @@ function SudokuSolver({ generatedBoard, setBoard, originalBoard }) {
   return (
     <>
       <div className='flex mt-4 gap-2'>
-        <Button onClick={handleSolve} className="w-full md:w-1/2">Solve Board</Button>
-        <Button className="w-full md:w-1/2 bg-white text-black hover:bg-white border-black hover:border-blue" onClick={handleHint}>Hint</Button>
+        <Button onClick={handleSolve} className="solveBoardBtn w-full md:w-1/2">Solve Board</Button>
+        <Button className="HintBtn w-full md:w-1/2 bg-white text-black hover:bg-white border-black hover:border-blue" onClick={handleHint}>Hint</Button>
       </div>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogTrigger onClick={checkSolution} className='mt-4 border-black' >     
+        <DialogTrigger onClick={checkSolution} className='checkSolutionBtn mt-4 border-black' >     
       Check Solution
      </DialogTrigger>
      <DialogContent >

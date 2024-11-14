@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="md:w-1/2 border-black">Change Difficulty</Button>
+        <Button variant="outline" className="DifficultyBtn md:w-1/2 border-black">Change Difficulty</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuGroup>
